@@ -104,7 +104,11 @@
                  [cider/piggieback "0.4.2"
                   :exclusions [org.clojure/clojurescript]]
                  ;; [com.cemerick/piggieback "0.2.1"]
-                 [com.cemerick/pomegranate "0.3.1"]]
+                 [com.cemerick/pomegranate "0.3.1"]
+                 
+                 ;[awb99.fortune "0.0.1"]
+                 ]
+  
 
   :plugins [[lein-environ "1.1.0"]
             [lein-cljsbuild "1.1.7"]
@@ -119,7 +123,7 @@
   :uberjar-exclusions [#".*javax/websocket.*" #".*javax/servlet.*"]
 
   ;; :jar-exclusions   [#"(?:^|\/)foo\/" #"(?:^|\/)demo\/" #"(?:^|\/)compiled.*\/" #"html$"]
-
+  
   :ring {:war-exclusions [#"WEB-INF/lib/javax.websocket-api-1.0.jar"]
          :handler        gorilla-repl.route/redirect-handler
          :servlet-class  gorilla_repl.RedirectServlet
@@ -131,7 +135,7 @@
   :main ^:skip-aot gorilla-repl.core
 
   ;; :aot [gorilla-repl.servlet]
-
+  
   ;; :jvm-opts ["-Xmx1g"]
   :java-source-paths ["src/java"]
   :source-paths ["src/clj" "src/cljc" "env/prod/clj"]
@@ -151,42 +155,42 @@
 
   :cljsbuild {:jar true
               :builds
-                   {:app {:source-paths ["src/cljs" "src/cljc" "env/prod/cljs"]
-                          :compiler     {:output-to       "target/cljsbuild/gorilla-repl-client/js/gorilla.js"
+              {:app {:source-paths ["src/cljs" "src/cljc" "env/prod/cljs"]
+                     :compiler     {:output-to       "target/cljsbuild/gorilla-repl-client/js/gorilla.js"
                                          ;; :output-dir      "target/js/out"
                                          ;; :asset-path      "/js/out"
-                                         :foreign-libs    [{:file     "resources/gorilla-repl-client/jslib/cljs-include.js"
+                                    :foreign-libs    [{:file     "resources/gorilla-repl-client/jslib/cljs-include.js"
                                                             ;; "resources/gorilla-repl-client/jslib/webpack-bundle-empty.js"
-                                                            :provides ["gorilla-repl.webpack-include"
+                                                       :provides ["gorilla-repl.webpack-include"
                                                                        ;; "cljsjs.react"
                                                                        ;; "cljsjs.react.dom"
                                                                        ;;"cljsjs.react.dom.server"
-                                                                       ]
-                                                            :requires ["cljsjs.react"
-                                                                       "cljsjs.react.dom"] ;;  ... and use it externally in webpack
-                                                            }
-                                                           {:file     "resources/gorilla-repl-client/jslib/cljs-extern-empty.js"
-                                                            :provides ["gorilla-repl.webpack-extern"]
-                                                            }
-                                                           {:file     "src/npm-cljs/codemirror/mode/clojure/clojure-parinfer.js"
-                                                            :requires ["cljsjs.codemirror"]
-                                                            :provides ["cljsjs.codemirror.mode.clojure-parinfer"]}
-                                                           {:file     "resources/gorilla-repl-client/jslib/mousetrap-global-bind.min.js"
-                                                            :requires ["cljsjs.mousetrap"]
-                                                            :provides ["cljsjs.mousetrap-global-bind"]}
-                                                           {:file     "resources/gorilla-repl-client/js/worksheetParser.js"
-                                                            :provides ["gorilla-repl.worksheet-parser"]}]
-                                         :main            gorilla-repl.prod
-                                         :verbose         true
-                                         :compiler-stats  true
-                                         :closure-defines {goog.DEBUG false}
-                                         :elide-asserts   true
-                                         :optimizations   :advanced
+                                                                  ]
+                                                       :requires ["cljsjs.react"
+                                                                  "cljsjs.react.dom"] ;;  ... and use it externally in webpack
+                                                       }
+                                                      {:file     "resources/gorilla-repl-client/jslib/cljs-extern-empty.js"
+                                                       :provides ["gorilla-repl.webpack-extern"]
+                                                       }
+                                                      {:file     "src/npm-cljs/codemirror/mode/clojure/clojure-parinfer.js"
+                                                       :requires ["cljsjs.codemirror"]
+                                                       :provides ["cljsjs.codemirror.mode.clojure-parinfer"]}
+                                                      {:file     "resources/gorilla-repl-client/jslib/mousetrap-global-bind.min.js"
+                                                       :requires ["cljsjs.mousetrap"]
+                                                       :provides ["cljsjs.mousetrap-global-bind"]}
+                                                      {:file     "resources/gorilla-repl-client/js/worksheetParser.js"
+                                                       :provides ["gorilla-repl.worksheet-parser"]}]
+                                    :main            gorilla-repl.prod
+                                    :verbose         true
+                                    :compiler-stats  true
+                                    :closure-defines {goog.DEBUG false}
+                                    :elide-asserts   true
+                                    :optimizations   :advanced
                                          ;; https://gist.github.com/swannodette/4fc9ccc13f62c66456daf19c47692799
-                                         :infer-externs   true
-                                         :externs         ["src/cljs/gorilla-repl-externs.js"]
-                                         :pretty-print    false
-                                         :parallel-build  true}}}}
+                                    :infer-externs   true
+                                    :externs         ["src/cljs/gorilla-repl-externs.js"]
+                                    :pretty-print    false
+                                    :parallel-build  true}}}}
 
   :doo {:build "doo-test"
         :alias {:default  [#_:chrome #_:phantom :karma-phantom]
@@ -194,8 +198,8 @@
                 ;; :all [:browsers :firefox]
                 }
         :paths
-               {;; :phantom "phantomjs --web-security=false"
-                :karma "karma --port=9881 --no-colors"}}
+        {;; :phantom "phantomjs --web-security=false"
+         :karma "karma --port=9881 --no-colors"}}
 
   :profiles {:dev     {:repl-options   {:init-ns gorilla-repl.repl
                                         :port    4001}
@@ -261,7 +265,15 @@
                                         ;; due to auto-build and so on
                                         ;; lein doo
                                         ;; Uncaught Error: js/React is missing
-                                        {:doo-test {:source-paths ["src/cljs" "src/cljc" "test/cljs"]
+                                        {
+                                         :pudding {:source-paths ["plugin"]
+                                                   :compiler {:main test
+                                                              :optimizations :none
+                                                              ;:output-dir "pudding"
+                                                              :output-to "target/pudding.js"}}
+                                         
+                                         
+                                         :doo-test {:source-paths ["src/cljs" "src/cljc" "test/cljs"]
                                                     :compiler     {:main           gorilla-repl.doo-runner
                                                                    ;; :main gorilla-repl.karma-runner
                                                                    :optimizations  :none
