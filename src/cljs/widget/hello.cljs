@@ -1,7 +1,6 @@
 (ns widget.hello
   (:require
    [reagent.core :as reagent :refer [atom]]
-   [re-frame.core :refer [subscribe dispatch dispatch-sync]]
    ))
 
 (defn world [& [name]] ; name==state. state is an atom

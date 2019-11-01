@@ -1,8 +1,6 @@
 (ns widget.text
   (:require
-   [reagent.core :as reagent :refer [atom]]
-   [re-frame.core :refer [subscribe dispatch dispatch-sync]]
-   ))
+   [reagent.core :as reagent :refer [atom]]))
 
 
 (defn update-key [a k v]

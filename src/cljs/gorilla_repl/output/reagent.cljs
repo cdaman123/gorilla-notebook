@@ -1,38 +1,15 @@
 (ns gorilla-repl.output.reagent
   (:require
    [reagent.core :as reagent :refer [atom]]
-   [re-frame.core :refer [subscribe dispatch dispatch-sync]]
-   
-   [widget.hello] ; only included for testing.
-   [widget.clock]
-   [widget.combo]
-   [widget.text]
+   [widget.core :refer [resolve-function]]
    ))
 
 
-(defn widget-not-found
-  [name]
-  [:div.widget-not-found {:style {:background-color "red"}}
-   [:h3 "WIDGET NOT FOUND!"]
-   [:p "You need to specify the fully-qualified name of the widget"]
-   [:p "Example: widget.hello/world"]
-   [:p "Example: widget.clock/binary-clock"]
-   [:p (str "You have entered: " name) ]
-   ]
-  )
 
 
-(defn resolve-function [s]
-  (let [;gorilla-repl.output.reagentwidget (cljs.core/resolve (symbol widget-name)) ; this is what we want, but resolve is a macro
-        _ (println "resolving-function " s)
-        ]
-    (case s
-      widget.clock/binary-clock widget.clock/binary-clock
-      "widget.combo/list-selector" widget.combo/list-selector
-      widget.hello/world widget.hello/world
-      widget.hello/love widget.hello/love
-      text widget.text/atom-text
-      widget-not-found)))
+
+
+
 
 (defn resolve-vector [x]
   (let [;_ (println "reagent function found: " x)
@@ -47,6 +24,7 @@
     ;a
     b
     ))
+
 
 (def state-atom
   (reagent/atom 

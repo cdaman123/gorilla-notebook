@@ -12,6 +12,9 @@
      [pinkgorilla.ui.hiccup :refer [html!]] 
      [pinkgorilla.ui.reagent :refer [reagent!]]))
 ;; @@
+;; ->
+;;; 
+;; <-
 ;; =>
 ;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-nil"],"nil"],"~:value","nil"]
 ;; <=
@@ -110,6 +113,9 @@
 ; TEST to render a re-com components
 
 ;; @@
+;; ->
+;;; 
+;; <-
 
 ;; @@
 (reagent! 
@@ -118,14 +124,32 @@
      [rcm/button :label "No Clicking !!"]
      [:span "ho"]]])
 ;; @@
+;; ->
+;;; 
+;; <-
 ;; =>
 ;;; ["^ ","~:type","reagent","~:content",["h-box","gap","30px","align","center","children",[["span","hi"],["button","label","No Clicking !!"],["span","ho"]]],"~:value","[rcm/h-box :gap \"30px\" :align :center :children [[:span \"hi\"] [rcm/button :label \"No Clicking !!\"] [:span \"ho\"]]]"]
 ;; <=
 
 ;; @@
+; SLIDERS DO NOT WORK, BECAUSE WE CANNOT GIVE :model :on-change
+(reagent! 
+  '[rcm/h-box :gap "30px" :align    :center :children
+    [[:span "hi"] 
+     [rcm/slider]sa
+     [:span "ho"]]])
+
+;; @@
+;; ->
+;;; 
+;; <-
+;; =>
+;;; ["^ ","~:type","reagent","~:content",["h-box","gap","30px","align","center","children",[["span","hi"],["slider"],["span","ho"]]],"~:value","[rcm/h-box :gap \"30px\" :align :center :children [[:span \"hi\"] [rcm/slider] [:span \"ho\"]]]"]
+;; <=
 
 ;; @@
 
 ;; @@
-
-;; @@
+;; ->
+;;; 
+;; <-
