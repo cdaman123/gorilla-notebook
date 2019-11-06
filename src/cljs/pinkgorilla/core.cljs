@@ -11,6 +11,8 @@
    [pinkgorilla.editor.core :as editor]
    [pinkgorilla.routes :as routes]
    [pinkgorilla.kernel.nrepl :as nrepl]
+   [pinkgorilla.kernel.browser :as brwrepl]
+   [pinkgorilla.kernel.klipsecljs :refer [init-klipse!]]
 
    ;[widget.replikativ]
    ))
@@ -30,6 +32,7 @@
   (routes/app-routes)
   (editor/init-cm-globally!)
   (v/init-mathjax-globally!)
+  (init-klipse!)
   (let [app-url (url/url (-> js/window .-location .-href))
         route (:anchor app-url)
         read-write (or (not route) (not (str/index-of route "/view")))]

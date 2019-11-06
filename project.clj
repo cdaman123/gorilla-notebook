@@ -97,7 +97,18 @@
                  ;[cider/piggieback "0.4.2"
                  ; :exclusions [org.clojure/clojurescript]]
                  ;; TODO : Replace pomegranate with tools alpha
-                 [com.cemerick/pomegranate "1.1.0"]]
+                 [com.cemerick/pomegranate "1.1.0"]
+                 
+                 ; klipse and its dependencies
+                 [cljs-http "0.1.42"]
+                 [appliedscience/js-interop "0.1.13"]
+                 [viebel/gadjett "0.5.2"]
+                 [viebel/klipse-clj "10.1.3"] ; todo: remove parinfer dependency
+                 
+                 ; ui plugins bundled with notebook
+                 [awb99.fortune "0.0.1"]                 
+                 
+                 ]
                  ;; REPLIKATIV
                ;  [io.replikativ/replikativ "0.2.4"]
                ;  [com.cognitect/transit-cljs "0.8.239" :scope "provided"]
@@ -178,7 +189,7 @@
                                          ;; :compiler-stats  true
                                          ;; :closure-defines {goog.DEBUG false}
                                          :elide-asserts   true
-                                         :optimizations   :advanced
+                                         :optimizations   :none ; :advanced
                                          ;; https://gist.github.com/swannodette/4fc9ccc13f62c66456daf19c47692799
                                          :infer-externs   true
                                          :externs         ["src/cljs/gorilla-repl-externs.js"]

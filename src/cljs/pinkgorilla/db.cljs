@@ -180,7 +180,7 @@
                    (t/read (t/reader :json) output-string))]
      {:id               (-> (uuid/make-random-uuid) uuid/uuid-string keyword)
       :type             :code
-      :kernel           :default-clj                        ;; default-cljs
+      :kernel           :clj                        ;; default-cljs
       :content          {:value (or content "")
                          :type  "text/x-clojure"}
       :console-response console-text
@@ -193,7 +193,7 @@
   {:id               (:id free-segment)
    :type             :code
    ;; TODO forcing :default-clj is not so nice
-   :kernel           :default-clj
+   :kernel           :clj
    :content          {:value (get-in free-segment [:content :value])
                       :type  "text/x-clojure"}
    :console-response nil
