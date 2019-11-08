@@ -98,16 +98,16 @@
                  ; :exclusions [org.clojure/clojurescript]]
                  ;; TODO : Replace pomegranate with tools alpha
                  [com.cemerick/pomegranate "1.1.0"]
-                 
+
                  ; klipse and its dependencies
                  [cljs-http "0.1.42"]
                  [appliedscience/js-interop "0.1.13"]
                  [viebel/gadjett "0.5.2"]
                  [viebel/klipse-clj "10.1.3"] ; todo: remove parinfer dependency
-                 
+
                  ; ui plugins bundled with notebook
-                 [awb99.fortune "0.0.1"]                 
-                 
+                 [awb99.fortune "0.0.1"]
+
                  ]
                  ;; REPLIKATIV
                ;  [io.replikativ/replikativ "0.2.4"]
@@ -197,10 +197,9 @@
                                          :parallel-build  true}}}}
 
   :doo {:build "doo-test"
-        :alias {:default  [#_:chrome #_:phantom :karma-phantom]
-                :browsers [:chrome :firefox]
-                ;; :all [:browsers :firefox]
-                }
+        :default  [#_:chrome #_:phantom :karma-phantom]
+        :browsers [:chrome #_:firefox]
+        :alias {:default [:chrome-headless]}
         :paths
                {;; :phantom "phantomjs --web-security=false"
                 :karma "./node_modules/karma/bin/karma --port=9881 --no-colors"}}
@@ -280,9 +279,7 @@
                                                                    ;; :source-map     "target/cljsbuild/gorilla-repl-client/js/gorilla_doo.js.map"
                                                                    :pretty-print   true
                                                                    :parallel-build true
-                                                                   :foreign-libs   [{:file     "node_modules/babel-polyfill/browser.js"
-                                                                                     :provides ["phantomjs.polyfill"]}
-                                                                                    ;{:file     "resources/gorilla-repl-client/jslib/cljs-include.js"
+                                                                   :foreign-libs   [;{:file     "resources/gorilla-repl-client/jslib/cljs-include.js"
                                                                                     ; :provides ["gorilla-repl.webpack-include"
                                                                                     ;            ;; "cljsjs.react"
                                                                                     ;            ;; "cljsjs.react.dom"
