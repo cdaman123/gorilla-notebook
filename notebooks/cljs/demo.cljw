@@ -254,8 +254,98 @@ x
 ;; @@
 (+ 77 7)
 ;; @@
+;; ->
+;;; [:ok 84] type: function Number() {
+;;;     [native code]
+;;; }
+;; <-
 ;; =>
-;;; ["^ ","~:type","html","~:content",["span",["^ ","~:class","clj-long"],"84"],"~:value","84"]
+;;; ["^ ","~:type","html","~:content",["span","84"],"~:value","84"]
+;; <=
+
+;; @@
+;meta data on var - not working
+^{:foo 8} 77
+;; @@
+;; ->
+;;; [:error #error {:message "Metadata can not be applied to 77. Metadata can only be applied to IMetas.", :data {:type :reader-exception, :ex-kind :reader-error}}] type: function cljs$core$ExceptionInfo(message,data,cause){
+;;; var e = (new Error(message));
+;;; var this$ = this;
+;;; this$.message = message;
+;;; 
+;;; this$.data = data;
+;;; 
+;;; this$.cause = cause;
+;;; 
+;;; this$.name = e.name;
+;;; 
+;;; this$.description = e.description;
+;;; 
+;;; this$.number = e.number;
+;;; 
+;;; this$.fileName = e.fileName;
+;;; 
+;;; this$.lineNumber = e.lineNumber;
+;;; 
+;;; this$.columnNumber = e.columnNumber;
+;;; 
+;;; this$.stack = e.stack;
+;;; 
+;;; return this$;
+;;; }
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span","#error {:message \"Metadata can not be applied to 77. Metadata can only be applied to IMetas.\", :data {:type :reader-exception, :ex-kind :reader-error}}"],"~:value","#error {:message \"Metadata can not be applied to 77. Metadata can only be applied to IMetas.\", :data {:type :reader-exception, :ex-kind :reader-error}}"]
+;; <=
+
+;; @@
+;meta data on fn
+(def ^{:foo 8} t 67)
+(def ^{:foo 8} p 70)
+;; @@
+;; ->
+;;; [:ok #'cljs.user/p] type: function (val,sym,_meta){
+;;; this.val = val;
+;;; this.sym = sym;
+;;; this._meta = _meta;
+;;; this.cljs$lang$protocol_mask$partition0$ = 6717441;
+;;; this.cljs$lang$protocol_mask$partition1$ = 0;
+;;; }
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span","#'cljs.user/p"],"~:value","#'cljs.user/p"]
+;; <=
+
+;; @@
+t
+;; @@
+;; ->
+;;; [:ok 67] type: function Number() {
+;;;     [native code]
+;;; }
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span","67"],"~:value","67"]
+;; <=
+
+;; @@
+(meta t)
+;; @@
+;; ->
+;;; [:ok nil] type: 
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span","nil"],"~:value","nil"]
+;; <=
+
+;; @@
+(doc t)
+;; @@
+;; ->
+;;; [:ok nil] type: 
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span","nil"],"~:value","nil"]
 ;; <=
 
 ;; @@

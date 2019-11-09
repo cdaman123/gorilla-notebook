@@ -4,6 +4,10 @@
    [day8.re-frame.undo :as undo :refer [undoable]]
 
    [pinkgorilla.db :as db :refer [initial-db]]
+   [pinkgorilla.notebook.core :refer [save-notebook-hydrated 
+                                      to-code-segment to-free-segment 
+                                      remove-segment insert-segment-at
+                                      create-code-segment]]
    [pinkgorilla.editor.core :as editor]
    [pinkgorilla.kernel.nrepl :as nrepl]
    [pinkgorilla.kernel.mock :as mock]
@@ -26,13 +30,13 @@
  :worksheet:changeToCode
  [standard-interceptors]
  (fn [db _]
-   (change-to db db/to-code-segment)))
+   (change-to db to-code-segment)))
 
 (reg-event-db
  :worksheet:changeToFree
  [standard-interceptors]
  (fn [db _]
-   (change-to db db/to-free-segment)))
+   (change-to db to-free-segment)))
 
 (reg-event-db
  :worksheet:clear-all-output
@@ -70,7 +74,7 @@
  (fn [db _]
    (let [worksheet (get db :worksheet)
          active-id (get-in db [:worksheet :active-segment])]
-     (assoc db :worksheet (db/remove-segment worksheet active-id)))))
+     (assoc db :worksheet (remove-segment worksheet active-id)))))
 
 (reg-event-db
  :worksheet:deleteBackspace
@@ -78,7 +82,7 @@
  (fn [db _]
    (let [worksheet (get db :worksheet)
          active-id (get-in db [:worksheet :active-segment])]
-     (assoc db :worksheet (db/remove-segment worksheet active-id)))))
+     (assoc db :worksheet (remove-segment worksheet active-id)))))
 
 (reg-event-db
  :worksheet:evaluate
@@ -167,10 +171,10 @@
   (let [segment-order (get-in db [:worksheet :segment-order])
         active-id (get-in db [:worksheet :active-segment])
         active-idx (.indexOf segment-order active-id)
-        new-segment (db/create-code-segment "")]
+        new-segment (create-code-segment "")]
     (merge db {:worksheet
                (-> (:worksheet db)
-                   (db/insert-segment-at (index-fn active-idx) new-segment))})))
+                   (insert-segment-at (index-fn active-idx) new-segment))})))
 
 (reg-event-db
  :worksheet:newAbove

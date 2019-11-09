@@ -3,9 +3,8 @@
    [goog.crypt.base64 :as b64]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
    [ajax.core :as ajax :refer [GET POST]]
-
+   [pinkgorilla.notebook.core :refer [load-notebook-hydrated]]
    [pinkgorilla.routes :as routes]
-   [pinkgorilla.worksheet-parser] ; awb99: hack - parsing is done via js file!! via externs!!
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]))
 
 
@@ -39,22 +38,12 @@
  (fn
    [db [_ source filename content]]
    (let [content (loaded-worksheet source filename content)
-         segs (.parse js/worksheetParser content)
-         segments (->> segs
-                       (map (fn [x] [(:id x) x]))
-                       (into {}))
-         segment-order (->> segs
-                            (map #(:id %))
-                            (into []))
+         _ (println "content loaded: " content)
+         worksheet (load-notebook-hydrated content)
          save (assoc (:save db) :filename filename)]
-     (assoc db :worksheet
-            {:segments             segments
-             :segment-order        segment-order
-             :url                  filename
-             :queued-code-segments #{}
-             :active-segment       nil}
-            :save
-            save))))
+     (assoc db 
+            :worksheet worksheet
+            :save save))))
 
 
 (reg-event-db

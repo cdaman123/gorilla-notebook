@@ -49,7 +49,7 @@
                  [org.webjars/MathJax "2.7.0"]              ;; TODO Not quite sure about value
                  [re-frame "0.10.9"]
                  [com.cemerick/url "0.1.1"]
-                 [com.lucasbradstreet/cljs-uuid-utils "1.0.2"]
+                 [com.lucasbradstreet/cljs-uuid-utils "1.0.2"] ;; awb99: in encoding, and clj/cljs proof
                  [org.clojure/tools.cli "0.4.2"]
                  [ring "1.7.1"
                   ;; :exclusions [ring/ring-jetty-adapter]
@@ -104,9 +104,12 @@
                  [appliedscience/js-interop "0.1.13"]
                  [viebel/gadjett "0.5.2"]
                  [viebel/klipse-clj "10.1.3"] ; todo: remove parinfer dependency
-
+                 
                  ; ui plugins bundled with notebook
                  [awb99.fortune "0.0.1"]
+
+                 ; notebook encoding
+                 [org.pinkgorilla/encoding "0.0.2"]
 
                  ]
                  ;; REPLIKATIV
@@ -182,8 +185,7 @@
                                                            {:file     "resources/gorilla-repl-client/jslib/mousetrap-global-bind.min.js"
                                                             :requires ["cljsjs.mousetrap"]
                                                             :provides ["cljsjs.mousetrap-global-bind"]}
-                                                           {:file     "resources/gorilla-repl-client/js/worksheetParser.js"
-                                                            :provides ["pinkgorilla.worksheet-parser"]}]
+                                                         ]
                                          :main            pinkgorilla.prod
                                          ;; :verbose         true
                                          ;; :compiler-stats  true
@@ -294,8 +296,7 @@
                                                                                     {:file     "resources/gorilla-repl-client/jslib/mousetrap-global-bind.min.js"
                                                                                      :requires ["cljsjs.mousetrap"]
                                                                                      :provides ["cljsjs.mousetrap-global-bind"]}
-                                                                                    {:file     "resources/gorilla-repl-client/js/worksheetParser.js"
-                                                                                     :provides ["pinkgorilla.worksheet-parser"]}]}}}
+                                                                                ]}}}
                                         }}
 
              :uberjar {:hooks       [minify-assets.plugin/hooks]

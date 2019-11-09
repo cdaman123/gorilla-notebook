@@ -18,11 +18,10 @@
    [cljsjs.mousetrap-global-bind]
 
    [pinkgorilla.db :as db :refer [initial-db]]
-   [pinkgorilla.worksheet-parser] ; awb99: hack - parsing is done via js file!! via externs!!
    [pinkgorilla.editor.core :as editor]
    [pinkgorilla.kernel.nrepl :as nrepl]
    [pinkgorilla.routes :as routes]
-   [pinkgorilla.newnotebook :refer [create-new-worksheet]]
+   [pinkgorilla.notebook.new :refer [create-new-worksheet]]
 
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]
    [pinkgorilla.events.worksheet]
