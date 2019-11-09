@@ -26,11 +26,13 @@
 
    [clojure.string :as str]
    [cljs-uuid-utils.core :as uuid]
-   [re-frame.core :refer [dispatch]]))
+   [re-frame.core :refer [dispatch]]
+   [taoensso.timbre :refer-macros (info)]
+   ))
 
 (defn init-klipse! []
   (go (<! (cklipse/create-state-eval))
-      (println "klipse init done")))
+      (info "klipse init done")))
 
 
 (defn send-console [segment-id result]
@@ -59,7 +61,7 @@
    :form "(+ 7 7)"}
 
 (defn send-result-prepl [segment-id result]
-  (println "cljs eval-prepl result:" result)
+  (info "cljs eval-prepl result:" result)
   (send-console segment-id (:val result)))
 
 (defn send-eval-message-old!
@@ -70,11 +72,11 @@
 
 ;; EVAL
 
-;; result:  
+;; result:
 ;; [:ok value]
 ;; [:error #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[TypeError TypeError: bongo.trott.g is undefined]}]
 (defn send-result-eval [segment-id result]
-  (println "cljs eval result:" result)
+  (info "cljs eval result:" result)
   (send-console segment-id (str (pr-str result) " type: " (type (nth result 1))))
   (send-value segment-id (html (pr-str (nth result 1))))
   (dispatch [:evaluator:done-response segment-id])) ; assumption: only one response to eval

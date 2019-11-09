@@ -14,14 +14,15 @@
    [pinkgorilla.kernel.browser :as brwrepl]
    [pinkgorilla.kernel.klipsecljs :refer [init-klipse!]]
 
+   [taoensso.timbre :refer-macros (info)]
    ;[widget.replikativ]
    ))
 
 (defn ^:before-load my-before-reload-callback []
-  (println "BEFORE reload!!!"))
+  (info "BEFORE reload!!!"))
 
 (defn ^:after-load my-after-reload-callback []
-  (println "AFTER reload!!!"))
+  (info "AFTER reload!!!"))
 
 (defn mount-root
   []

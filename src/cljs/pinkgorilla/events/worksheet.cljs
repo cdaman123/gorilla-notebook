@@ -8,7 +8,9 @@
    [pinkgorilla.kernel.nrepl :as nrepl]
    [pinkgorilla.kernel.mock :as mock]
    [pinkgorilla.kernel.klipsecljs :as klipse]
-   [pinkgorilla.events.helper :refer [text-matches-re default-error-handler check-and-throw standard-interceptors]]))
+   [pinkgorilla.events.helper :refer [text-matches-re default-error-handler check-and-throw standard-interceptors]]
+   [taoensso.timbre :refer-macros (info)]
+   ))
 
 
 
@@ -94,7 +96,7 @@
        :clj (nrepl/send-eval-message! active-id (get-in active-segment [:content :value]))
        :mock (mock/send-eval-message! active-id (get-in active-segment [:content :value]))
        :cljs (klipse/send-eval-message! active-id (get-in active-segment [:content :value]))
-       (println "cannot eval - unknown kernel!"))
+       (info "cannot eval - unknown kernel!"))
      (-> (assoc-in db [:worksheet :segments active-id] new-active-segment)
          (assoc-in [:worksheet :queued-code-segments] (conj queued-segs (:id new-active-segment)))))))
 
