@@ -1,22 +1,23 @@
 (ns ^:figwheel-hooks pinkgorilla.core
   (:require
-   [clojure.string :as str]
-   [reagent.core :as ra]
-   [re-frame.core :refer [dispatch-sync]]
-   [cemerick.url :as url]
-   [secretary.core :as secretary]
+    [clojure.string :as str]
+    [reagent.core :as ra]
+    [re-frame.core :refer [dispatch-sync]]
+    [cemerick.url :as url]
+    [secretary.core :as secretary]
 
-   [pinkgorilla.events]
-   [pinkgorilla.views :as v]
-   [pinkgorilla.editor.core :as editor]
-   [pinkgorilla.routes :as routes]
-   [pinkgorilla.kernel.nrepl :as nrepl]
-   [pinkgorilla.kernel.browser :as brwrepl]
-   [pinkgorilla.kernel.klipsecljs :refer [init-klipse!]]
+    [pinkgorilla.prefs :as prefs]
+    [pinkgorilla.events]
+    [pinkgorilla.views :as v]
+    [pinkgorilla.editor.core :as editor]
+    [pinkgorilla.routes :as routes]
+    [pinkgorilla.kernel.nrepl :as nrepl]
+    [pinkgorilla.kernel.browser :as brwrepl]
+    [pinkgorilla.kernel.klipsecljs :refer [init-klipse!]]
 
-   [taoensso.timbre :refer-macros (info)]
-   ;[widget.replikativ]
-   ))
+    [taoensso.timbre :refer-macros (info)]
+    ;[widget.replikativ]
+    ))
 
 (defn ^:before-load my-before-reload-callback []
   (info "BEFORE reload!!!"))
@@ -33,6 +34,9 @@
   (routes/app-routes)
   (editor/init-cm-globally!)
   (v/init-mathjax-globally!)
+  (prefs/if-cljs-kernel
+    (info "cljs kernel enabled")
+    (info "cljs kernel disabled"))
   (init-klipse!)
   (let [app-url (url/url (-> js/window .-location .-href))
         route (:anchor app-url)

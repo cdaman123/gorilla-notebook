@@ -70,6 +70,7 @@
                  :foreign-libs    foreign-libs
                  :closure-defines {"re_frame.trace.trace_enabled_QMARK_" true}
                  :preloads        ['day8.re-frame-10x.preload]
+                 :external-config {:gorilla/config {:with-cljs-kernel true}}
                  }
        :config  { :auto-testing true
                  ;; :open-url         "http://100.115.92.204:3449/worksheet.html"

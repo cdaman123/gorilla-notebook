@@ -104,7 +104,7 @@
                  [appliedscience/js-interop "0.1.13"]
                  [viebel/gadjett "0.5.2"]
                  [viebel/klipse-clj "10.1.3"] ; todo: remove parinfer dependency
-                 
+
                  ; ui plugins bundled with notebook
                  [awb99.fortune "0.0.1"]
 
@@ -192,6 +192,7 @@
                                          ;; :closure-defines {goog.DEBUG false}
                                          :elide-asserts   true
                                          :optimizations   :none ; :advanced
+                                         :external-config {:gorilla/config {:with-cljs-kernel true}}
                                          ;; https://gist.github.com/swannodette/4fc9ccc13f62c66456daf19c47692799
                                          :infer-externs   true
                                          :externs         ["src/cljs/gorilla-repl-externs.js"]

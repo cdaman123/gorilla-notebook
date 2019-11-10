@@ -54,6 +54,7 @@
 
 
 ;; TODO : Remove all the side effects from the handlers
+;; TODO : require/loading should not be used for setup
 ;; -- Event Handlers ----------------------------------------------------------
 
 
