@@ -17,8 +17,8 @@
 
 
 (prefs/if-cljs-kernel
-  (require '[pinkgorilla.kernel.mock :as cljs-kernel])
-  (require '[pinkgorilla.kernel.klipsecljs :as cljs-kernel]))
+ (require '[pinkgorilla.kernel.klipsecljs :as cljs-kernel])
+ (require '[pinkgorilla.kernel.mock :as cljs-kernel]))
 
 
 (defn change-to
@@ -102,7 +102,7 @@
      (case kernel
        :clj (nrepl/send-eval-message! active-id (get-in active-segment [:content :value]))
        :mock (mock/send-eval-message! active-id (get-in active-segment [:content :value]))
-       :cljs (klipse/send-eval-message! active-id (get-in active-segment [:content :value]))
+       :cljs (cljs-kernel/send-eval-message! active-id (get-in active-segment [:content :value]))
        (info "cannot eval - unknown kernel!"))
      (-> (assoc-in db [:worksheet :segments active-id] new-active-segment)
          (assoc-in [:worksheet :queued-code-segments] (conj queued-segs (:id new-active-segment)))))))

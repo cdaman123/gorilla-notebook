@@ -27,8 +27,8 @@
   (ra/render [v/gorilla-app] (.getElementById js/document "react-app")))
 
 (prefs/if-cljs-kernel
-  (require '[pinkgorilla.kernel.mock :as cljs-kernel])
-  (require '[pinkgorilla.kernel.klipsecljs :as cljs-kernel]))
+ (require '[pinkgorilla.kernel.klipsecljs :as cljs-kernel])
+ (require '[pinkgorilla.kernel.mock :as cljs-kernel]))
 
 (defn ^:export init! []
   ;(widget.replikativ/setup-replikativ)
