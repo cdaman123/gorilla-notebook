@@ -5,7 +5,6 @@
     [re-frame.core :refer [dispatch-sync]]
     [cemerick.url :as url]
     [secretary.core :as secretary]
-
     [pinkgorilla.prefs :as prefs]
     [pinkgorilla.events]
     [pinkgorilla.views :as v]
@@ -13,8 +12,6 @@
     [pinkgorilla.routes :as routes]
     [pinkgorilla.kernel.nrepl :as nrepl]
     [pinkgorilla.kernel.browser :as brwrepl]
-    [pinkgorilla.kernel.klipsecljs :refer [init-klipse!]]
-
     [taoensso.timbre :refer-macros (info)]
     ;[widget.replikativ]
     ))
@@ -29,15 +26,16 @@
   []
   (ra/render [v/gorilla-app] (.getElementById js/document "react-app")))
 
+(prefs/if-cljs-kernel
+  (require '[pinkgorilla.kernel.mock :as cljs-kernel])
+  (require '[pinkgorilla.kernel.klipsecljs :as cljs-kernel]))
+
 (defn ^:export init! []
   ;(widget.replikativ/setup-replikativ)
   (routes/app-routes)
   (editor/init-cm-globally!)
   (v/init-mathjax-globally!)
-  (prefs/if-cljs-kernel
-    (info "cljs kernel enabled")
-    (info "cljs kernel disabled"))
-  (init-klipse!)
+  (cljs-kernel/init-klipse!)
   (let [app-url (url/url (-> js/window .-location .-href))
         route (:anchor app-url)
         read-write (or (not route) (not (str/index-of route "/view")))]
