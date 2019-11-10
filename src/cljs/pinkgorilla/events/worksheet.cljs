@@ -15,7 +15,6 @@
    [taoensso.timbre :refer-macros (info)]
    ))
 
-
 (prefs/if-cljs-kernel
  (require '[pinkgorilla.kernel.klipsecljs :as cljs-kernel])
  (require '[pinkgorilla.kernel.mock :as cljs-kernel]))
