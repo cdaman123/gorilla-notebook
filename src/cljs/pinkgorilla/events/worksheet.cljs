@@ -2,20 +2,23 @@
   (:require
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
    [day8.re-frame.undo :as undo :refer [undoable]]
-
+   [pinkgorilla.prefs :as prefs]
    [pinkgorilla.db :as db :refer [initial-db]]
-   [pinkgorilla.notebook.core :refer [save-notebook-hydrated 
-                                      to-code-segment to-free-segment 
+   [pinkgorilla.notebook.core :refer [save-notebook-hydrated
+                                      to-code-segment to-free-segment
                                       remove-segment insert-segment-at
                                       create-code-segment]]
    [pinkgorilla.editor.core :as editor]
    [pinkgorilla.kernel.nrepl :as nrepl]
    [pinkgorilla.kernel.mock :as mock]
-   [pinkgorilla.kernel.klipsecljs :as klipse]
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler check-and-throw standard-interceptors]]
    [taoensso.timbre :refer-macros (info)]
    ))
 
+
+(prefs/if-cljs-kernel
+  (require '[pinkgorilla.kernel.mock :as cljs-kernel])
+  (require '[pinkgorilla.kernel.klipsecljs :as cljs-kernel]))
 
 
 (defn change-to
