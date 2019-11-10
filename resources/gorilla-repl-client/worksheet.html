@@ -95,8 +95,14 @@
     }
 </script-->
 
-<!--script src="jslib/cljs-extern.js"></script-->
-<script src="js/gorilla.js"></script>
+<script>
+    (function() {
+        var url = new URL(document.location),
+            bundle = url.searchParams.get("bundle"),
+            src = "js/gorilla" + ((bundle != null) ? "-" + bundle : "") + ".js";
+        document.write('<script src="' + src + '"><\/script>');
+    })();
+</script>
 
 
 <!-- awb99: requirejs is needed so that dependencies can be loaded at runtime
