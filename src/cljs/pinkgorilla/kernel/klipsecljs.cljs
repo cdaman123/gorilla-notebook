@@ -31,7 +31,10 @@
    [taoensso.timbre :refer-macros (info)]
 
    [pinkgorilla.ui.gorilla-renderable :refer [render]]
-   [pinkgorilla.ui.rendererCLJS]))
+   [pinkgorilla.ui.rendererCLJS]
+   [quil.core :include-macros true]  ; awb99: cannot do this in bundled-dependencies it seems.
+
+   ))
 
 (defn init-klipse! []
   (go (<! (cklipse/create-state-eval))

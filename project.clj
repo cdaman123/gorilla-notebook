@@ -98,7 +98,7 @@
                  ; :exclusions [org.clojure/clojurescript]]
                  ;; TODO : Replace pomegranate with tools alpha
                  [com.cemerick/pomegranate "1.1.0"] ; add-dependency in clj kernel
-               
+                 
                  ; klipse and its dependencies
                  [cljs-http "0.1.42"]
                  [appliedscience/js-interop "0.1.13"]
@@ -111,6 +111,7 @@
                  
                  ; ui plugins bundled with notebook
                  [awb99.fortune "0.0.1"]
+                 [quil "3.1.0"]
 
                  ]
                  ;; REPLIKATIV

@@ -19,6 +19,9 @@
   pinkgorilla.ui.rendererCLJS
   pinkgorilla.kernel.cljs-tools
   fortune.core
+  reagent.core
+  quil.core
+  quil.middleware
 
   ))
   

@@ -18,7 +18,7 @@
 
 (def dev-ws-processor (ws-relay/ws-processor route/nrepl-handler))
 
-(handle/set-config :project
+#_(handle/set-config :project
                    {:gorilla-options
                     {:editor {:text/x-clojure {:opts    [:paren-mode {:parinfer-mode :paren-mode}]
                                                :cm-opts {:mode "clojure-parinfer"}}}}}
