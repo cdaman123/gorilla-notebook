@@ -9,71 +9,18 @@
 ;; **
 
 ;; @@ [cljs]
-(pinkgorilla.ui.gorilla-renderable/render 15)
-;; @@
-;; ->
-;;; [:error #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: No protocol method Renderable.render defined for type number: 15]}] type: function cljs$core$ExceptionInfo(message,data,cause){
-;;; var e = (new Error(message));
-;;; var this$ = this;
-;;; this$.message = message;
-;;; 
-;;; this$.data = data;
-;;; 
-;;; this$.cause = cause;
-;;; 
-;;; this$.name = e.name;
-;;; 
-;;; this$.description = e.description;
-;;; 
-;;; this$.number = e.number;
-;;; 
-;;; this$.fileName = e.fileName;
-;;; 
-;;; this$.lineNumber = e.lineNumber;
-;;; 
-;;; this$.columnNumber = e.columnNumber;
-;;; 
-;;; this$.stack = e.stack;
-;;; 
-;;; return this$;
-;;; }
-;; <-
-;; =>
-;;; ["^ ","~:type","html","~:content",["span","#error {:message \"ERROR\", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: No protocol method Renderable.render defined for type number: 15]}"],"~:value","#error {:message \"ERROR\", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: No protocol method Renderable.render defined for type number: 15]}"]
-;; <=
-
-;; @@ [cljs]
-(pinkgorilla.ui.gorilla-renderable/render "h")
-;; @@
-;; ->
-;;; [:ok {:type :html, :content "<span class='cljs-string'>&quot;h&quot;</span>", :value "\"h\""}] type: function (meta,cnt,arr,__hash){
-;;; this.meta = meta;
-;;; this.cnt = cnt;
-;;; this.arr = arr;
-;;; this.__hash = __hash;
-;;; this.cljs$lang$protocol_mask$partition0$ = 16647951;
-;;; this.cljs$lang$protocol_mask$partition1$ = 139268;
-;;; }
-;; <-
-;; =>
-;;; ["^ ","~:type","html","~:content",["span","{:type :html, :content \"<span class='cljs-string'>&quot;h&quot;</span>\", :value \"\\\"h\\\"\"}"],"~:value","{:type :html, :content \"<span class='cljs-string'>&quot;h&quot;</span>\", :value \"\\\"h\\\"\"}"]
-;; <=
-
-;; @@ [cljs]
 (pinkgorilla.kernel.cljs-tools/r! [:h1 "super"])
 ;; @@
 ;; ->
-;;; [:ok {:value-response {:type "reagent", :content [:h1 "super"]}}] type: function (meta,cnt,arr,__hash){
-;;; this.meta = meta;
-;;; this.cnt = cnt;
-;;; this.arr = arr;
-;;; this.__hash = __hash;
-;;; this.cljs$lang$protocol_mask$partition0$ = 16647951;
-;;; this.cljs$lang$protocol_mask$partition1$ = 139268;
+;;; [:ok #object[pinkgorilla.kernel.cljs-tools.t_pinkgorilla$kernel$cljs_tools70282]] type: function (vec_or_reagent_f,meta70283){
+;;; this.vec_or_reagent_f = vec_or_reagent_f;
+;;; this.meta70283 = meta70283;
+;;; this.cljs$lang$protocol_mask$partition0$ = 393216;
+;;; this.cljs$lang$protocol_mask$partition1$ = 0;
 ;;; }
 ;; <-
 ;; =>
-;;; ["^ ","~:type","html","~:content",["span","{:value-response {:type \"reagent\", :content [:h1 \"super\"]}}"],"~:value","{:value-response {:type \"reagent\", :content [:h1 \"super\"]}}"]
+;;; ["^ ","~:type","~:reagent-cljs","~:content",["~:h1","super"]]
 ;; <=
 
 ;; @@ [clj]
