@@ -1,3 +1,24 @@
+(def foreign-libs [
+                   ;{:file     "resources/gorilla-repl-client/jslib/cljs-include.js"
+                   ; :provides ["gorilla-repl.webpack-include"
+                   ;            ;; "cljsjs.react"
+                   ;            ;; "cljsjs.react.dom"
+                   ;            ;; "cljsjs.react.dom.server"
+                   ;            ]
+                   ; :requires ["cljsjs.react"
+                   ;            "cljsjs.react.dom"] ;;  ... and use it externally in webpack
+                   ; }
+                   ;{:file     "resources/gorilla-repl-client/jslib/cljs-extern-empty.js"
+                   ; :provides ["gorilla-repl.webpack-extern"]
+                   ; }
+                   {:file     "src/npm-cljs/codemirror/mode/clojure/clojure-parinfer.js"
+                    :requires ["cljsjs.codemirror"]
+                    :provides ["cljsjs.codemirror.mode.clojure-parinfer"]}
+                   {:file     "resources/gorilla-repl-client/jslib/mousetrap-global-bind.min.js"
+                    :requires ["cljsjs.mousetrap"]
+                    :provides ["cljsjs.mousetrap-global-bind"]}
+                   ])
+
 (defproject org.pinkgorilla/gorilla-notebook "0.4.0-SNAPSHOT"
   :description "A rich REPL for Clojure in the notebook style."
   :url "https://github.com/pink-gorilla/gorilla-notebook"
@@ -80,7 +101,7 @@
                  [cljsjs/marked "0.3.5-1"]
                  [com.taoensso/sente "1.14.0"]
                  [org.danielsz/system "0.4.3"]
-                 [jarohen/chord "0.8.1"] ; websockets with core.async
+                 [jarohen/chord "0.8.1"]                    ; websockets with core.async
                  [org.clojure/core.match "0.3.0"]
                  [de.otto/tesla-microservice "0.13.1"]
                  ;; [de.otto/tesla-httpkit "1.0.1"]
@@ -97,26 +118,25 @@
                  ;[cider/piggieback "0.4.2"
                  ; :exclusions [org.clojure/clojurescript]]
                  ;; TODO : Replace pomegranate with tools alpha
-                 [com.cemerick/pomegranate "1.1.0"] ; add-dependency in clj kernel
-                 
+                 [com.cemerick/pomegranate "1.1.0"]         ; add-dependency in clj kernel
                  ; klipse and its dependencies
                  [cljs-http "0.1.42"]
                  [appliedscience/js-interop "0.1.13"]
                  [viebel/gadjett "0.5.2"]
-                 [viebel/klipse-clj "10.1.3"] ; todo: remove parinfer dependency
-                 
+                 [viebel/klipse-clj "10.1.3"]               ; todo: remove parinfer dependency
+
                  ;pinkgorilla sub projects
                  [org.pinkgorilla/gorilla-renderable "2.1.0"] ; klipse-cljs needs renderable
-                 [org.pinkgorilla/encoding "0.0.5"] ; notebook encoding
-                 
+                 [org.pinkgorilla/encoding "0.0.5"]         ; notebook encoding
+
                  ; ui plugins bundled with notebook
                  [awb99.fortune "0.0.1"]
                  [quil "3.1.0"]
 
                  ]
-                 ;; REPLIKATIV
-               ;  [io.replikativ/replikativ "0.2.4"]
-               ;  [com.cognitect/transit-cljs "0.8.239" :scope "provided"]
+  ;; REPLIKATIV
+  ;  [io.replikativ/replikativ "0.2.4"]
+  ;  [com.cognitect/transit-cljs "0.8.239" :scope "provided"]
 
   :plugins [[lein-environ "1.1.0"]
             [lein-cljsbuild "1.1.7"]
@@ -166,48 +186,42 @@
 
   :cljsbuild {:jar true
               :builds
-                   {:app {:source-paths ["src/cljs" "src/cljc" "env/prod/cljs"]
-                          :compiler     {:output-to       "target/cljsbuild/gorilla-repl-client/js/gorilla.js"
-                                         :foreign-libs    [
-                                                           ;{:file     "resources/gorilla-repl-client/jslib/cljs-include.js"
-                                                           ; :provides ["gorilla-repl.webpack-include"
-                                                           ;            ;; "cljsjs.react"
-                                                           ;            ;; "cljsjs.react.dom"
-                                                           ;            ;; "cljsjs.react.dom.server"
-                                                           ;            ]
-                                                           ; :requires ["cljsjs.react"
-                                                           ;            "cljsjs.react.dom"] ;;  ... and use it externally in webpack
-                                                           ; }
-                                                           ;{:file     "resources/gorilla-repl-client/jslib/cljs-extern-empty.js"
-                                                           ; :provides ["gorilla-repl.webpack-extern"]
-                                                           ; }
-                                                           {:file     "src/npm-cljs/codemirror/mode/clojure/clojure-parinfer.js"
-                                                            :requires ["cljsjs.codemirror"]
-                                                            :provides ["cljsjs.codemirror.mode.clojure-parinfer"]}
-                                                           {:file     "resources/gorilla-repl-client/jslib/mousetrap-global-bind.min.js"
-                                                            :requires ["cljsjs.mousetrap"]
-                                                            :provides ["cljsjs.mousetrap-global-bind"]}
-                                                         ]
-                                         :main            pinkgorilla.prod
-                                         ;; :verbose         true
-                                         ;; :compiler-stats  true
-                                         ;; :closure-defines {goog.DEBUG false}
-                                         :elide-asserts   true
-                                         :optimizations   :none ; :advanced
-                                         :external-config {:gorilla/config {:with-cljs-kernel true}}
-                                         ;; https://gist.github.com/swannodette/4fc9ccc13f62c66456daf19c47692799
-                                         :infer-externs   true
-                                         :externs         ["src/cljs/gorilla-repl-externs.js"]
-                                         :pretty-print    false
-                                         :parallel-build  true}}}}
+                   {:with-cljs-kernel    {:source-paths ["src/cljs" "src/cljc" "env/prod/cljs"]
+                                          :compiler     {:output-to       "target/cljsbuild/gorilla-repl-client/js/gorilla.js"
+                                                         :output-dir      "target/cljsbuild/gorilla-repl-client/js/modules"
+                                                         :asset-path      "./js/modules"
+                                                         :foreign-libs    ~foreign-libs
+                                                         :main            pinkgorilla.prod
+                                                         :elide-asserts   true
+                                                         :optimizations   :none
+                                                         :external-config {:gorilla/config {:with-cljs-kernel true}}
+                                                         :infer-externs   true
+                                                         :externs         ["src/cljs/gorilla-repl-externs.js"]
+                                                         :pretty-print    false
+                                                         :parallel-build  true}}
+                    :without-cljs-kernel {:source-paths ["src/cljs" "src/cljc" "env/prod/cljs"]
+                                          :compiler     {:output-to       "target/cljsbuild/gorilla-repl-client/js/gorilla-mock.js"
+                                                         :foreign-libs    ~foreign-libs
+                                                         :main            pinkgorilla.prod
+                                                         :elide-asserts   true
+                                                         ;; :verbose         true
+                                                         ;; :compiler-stats  true
+                                                         ;; :closure-defines {goog.DEBUG false}
+                                                         :optimizations   :advanced
+                                                         :external-config {:gorilla/config {:with-cljs-kernel false}}
+                                                         ;; https://gist.github.com/swannodette/4fc9ccc13f62c66456daf19c47692799
+                                                         :infer-externs   true
+                                                         :externs         ["src/cljs/gorilla-repl-externs.js"]
+                                                         :pretty-print    false
+                                                         :parallel-build  true}}}}
 
-  :doo {:build "doo-test"
+  :doo {:build    "doo-test"
         :default  [#_:chrome #_:phantom :karma-phantom]
         :browsers [:chrome #_:firefox]
-        :alias {:default [:chrome-headless]}
+        :alias    {:default [:chrome-headless]}
         :paths
-               {;; :phantom "phantomjs --web-security=false"
-                :karma "./node_modules/karma/bin/karma --port=9881 --no-colors"}}
+                  {;; :phantom "phantomjs --web-security=false"
+                   :karma "./node_modules/karma/bin/karma --port=9881 --no-colors"}}
 
   :profiles {:dev     {:repl-options   {:init-ns pinkgorilla.repl
                                         :port    4001}
@@ -299,7 +313,7 @@
                                                                                     {:file     "resources/gorilla-repl-client/jslib/mousetrap-global-bind.min.js"
                                                                                      :requires ["cljsjs.mousetrap"]
                                                                                      :provides ["cljsjs.mousetrap-global-bind"]}
-                                                                                ]}}}
+                                                                                    ]}}}
                                         }}
 
              :uberjar {:hooks       [minify-assets.plugin/hooks]

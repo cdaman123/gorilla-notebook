@@ -157,7 +157,7 @@
           demo.render("ABC-DEMO-123", {a:15, b:10, t: "render test"});
        });
 
-       var world_module = "define([],function(){return 'world!'})";
+       // var world_module = "define([],function(){return 'world!'})";
        var world_module = "define([],function(){return {a: function (name) {return 'hello, ' + name}}})";
        require(["loadstring!" + world_module],
        function(x){

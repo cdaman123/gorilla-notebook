@@ -3,6 +3,7 @@
    [goog.crypt.base64 :as b64]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
    [ajax.core :as ajax :refer [GET POST]]
+   [taoensso.timbre :refer-macros (info)]
    [pinkgorilla.notebook.core :refer [load-notebook-hydrated]]
    [pinkgorilla.routes :as routes]
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]))
@@ -38,10 +39,10 @@
  (fn
    [db [_ source filename content]]
    (let [content (loaded-worksheet source filename content)
-         _ (println "content loaded: " content)
+         _ (info "Content loaded: " content)
          worksheet (load-notebook-hydrated content)
          save (assoc (:save db) :filename filename)]
-     (assoc db 
+     (assoc db
             :worksheet worksheet
             :save save))))
 
@@ -54,7 +55,7 @@
    (let [file-items (->> (:files response)
                          (map (fn [x] {:text    x
                                        :desc    (str "<div class=\"command\">" x "</div>")
-                                        ;; For now, we have to take/return db due to clojuredocs sync window.open
+                                       ;; For now, we have to take/return db due to clojuredocs sync window.open
                                        :handler (fn [db]
                                                   (routes/nav! (str "/edit?worksheet-filename=" x))
                                                   db)})))
