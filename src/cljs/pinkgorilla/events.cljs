@@ -21,7 +21,7 @@
    [pinkgorilla.editor.core :as editor]
    [pinkgorilla.kernel.nrepl :as nrepl]
    [pinkgorilla.routes :as routes]
-   [pinkgorilla.notebook.new :refer [create-new-worksheet]]
+   [pinkgorilla.notebook.newnb :refer [create-new-worksheet]]
 
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]
    [pinkgorilla.events.worksheet]

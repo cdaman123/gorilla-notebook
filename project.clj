@@ -109,7 +109,7 @@
                  [awb99.fortune "0.0.1"]
 
                  ; notebook encoding
-                 [org.pinkgorilla/encoding "0.0.3"]
+                 [org.pinkgorilla/encoding "0.0.5"]
 
                  ]
                  ;; REPLIKATIV

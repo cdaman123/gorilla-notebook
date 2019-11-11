@@ -9,15 +9,9 @@
                                       remove-segment insert-segment-at
                                       create-code-segment]]
    [pinkgorilla.editor.core :as editor]
-   [pinkgorilla.kernel.nrepl :as nrepl]
-   [pinkgorilla.kernel.mock :as mock]
+   [pinkgorilla.kernel.core :as kernel]
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler check-and-throw standard-interceptors]]
-   [taoensso.timbre :refer-macros (info)]
-   ))
-
-(prefs/if-cljs-kernel
- (require '[pinkgorilla.kernel.klipsecljs :as cljs-kernel])
- (require '[pinkgorilla.kernel.mock :as cljs-kernel]))
+   [taoensso.timbre :refer-macros (info)]))
 
 
 (defn change-to
@@ -98,11 +92,7 @@
                                                    :exception      nil})
          kernel (:kernel active-segment)
          queued-segs (get-in db [:worksheet :queued-code-segments])]
-     (case kernel
-       :clj (nrepl/send-eval-message! active-id (get-in active-segment [:content :value]))
-       :mock (mock/send-eval-message! active-id (get-in active-segment [:content :value]))
-       :cljs (cljs-kernel/send-eval-message! active-id (get-in active-segment [:content :value]))
-       (info "cannot eval - unknown kernel!"))
+     (kernel/send-eval-message! kernel active-id (get-in active-segment [:content :value]))
      (-> (assoc-in db [:worksheet :segments active-id] new-active-segment)
          (assoc-in [:worksheet :queued-code-segments] (conj queued-segs (:id new-active-segment)))))))
 
@@ -114,7 +104,8 @@
          segment-order (get-in db [:worksheet :segment-order])
          sorted-code-segments (->> (map #(% segments) segment-order)
                                    (filter (fn [segment] (= :code (:type segment)))))]
-     (doall (map #(nrepl/send-eval-message!
+     (doall (map #(kernel/send-eval-message!
+                   (get-in % [:kernel])
                    (:id %)
                    (get-in % [:content :value])) sorted-code-segments))
      (assoc-in db [:worksheet :queued-code-segments] (-> (map #(:id %) sorted-code-segments)
