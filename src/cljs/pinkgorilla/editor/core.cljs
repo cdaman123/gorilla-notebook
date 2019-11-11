@@ -171,7 +171,7 @@
          "select"
          (fn [s]
            (if-not (str/starts-with? s "/")
-             (kernel/get-completion-doc s
+             (kernel/get-completion-doc :clj s   ;awb99 :clj is a hack
                                        ns
                                        (fn [docs]
                                          (if-not (str/blank? docs)

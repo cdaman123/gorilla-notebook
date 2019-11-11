@@ -12,7 +12,7 @@
                  ;; [cider/cider-nrepl "0.22.4"]
                  ;; [nrepl "0.6.0"]
                  ;; [cljs-tooling "0.2.0"]
-                 [org.pinkgorilla/gorilla-middleware "0.2.1"]
+                 [org.pinkgorilla/gorilla-middleware "0.2.2"]
                  [grimradical/clj-semver "0.3.0" :exclusions [org.clojure/clojure]]
                  [org.slf4j/slf4j-api "1.7.29"]
                  [ch.qos.logback/logback-core "1.2.3"]
@@ -97,19 +97,20 @@
                  ;[cider/piggieback "0.4.2"
                  ; :exclusions [org.clojure/clojurescript]]
                  ;; TODO : Replace pomegranate with tools alpha
-                 [com.cemerick/pomegranate "1.1.0"]
-
+                 [com.cemerick/pomegranate "1.1.0"] ; add-dependency in clj kernel
+               
                  ; klipse and its dependencies
                  [cljs-http "0.1.42"]
                  [appliedscience/js-interop "0.1.13"]
                  [viebel/gadjett "0.5.2"]
                  [viebel/klipse-clj "10.1.3"] ; todo: remove parinfer dependency
-
+                 
+                 ;pinkgorilla sub projects
+                 [org.pinkgorilla/gorilla-renderable "2.1.0"] ; klipse-cljs needs renderable
+                 [org.pinkgorilla/encoding "0.0.5"] ; notebook encoding
+                 
                  ; ui plugins bundled with notebook
                  [awb99.fortune "0.0.1"]
-
-                 ; notebook encoding
-                 [org.pinkgorilla/encoding "0.0.5"]
 
                  ]
                  ;; REPLIKATIV

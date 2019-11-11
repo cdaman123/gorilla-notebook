@@ -15,6 +15,10 @@
   klipse-clj.tools
   
   ;; libraries we want in the bundle:
+  pinkgorilla.ui.gorilla-renderable
+  pinkgorilla.ui.rendererCLJS
+  pinkgorilla.kernel.cljs-tools
   fortune.core
+
   ))
   

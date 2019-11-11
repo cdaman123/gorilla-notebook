@@ -8,14 +8,75 @@
 ;;; It's a good habit to run each worksheet in its own namespace. We created a random namespace for you; you can keep using it.
 ;; **
 
-;; @@
-
+;; @@ [cljs]
+(pinkgorilla.ui.gorilla-renderable/render 15)
 ;; @@
 ;; ->
+;;; [:error #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: No protocol method Renderable.render defined for type number: 15]}] type: function cljs$core$ExceptionInfo(message,data,cause){
+;;; var e = (new Error(message));
+;;; var this$ = this;
+;;; this$.message = message;
 ;;; 
+;;; this$.data = data;
+;;; 
+;;; this$.cause = cause;
+;;; 
+;;; this$.name = e.name;
+;;; 
+;;; this$.description = e.description;
+;;; 
+;;; this$.number = e.number;
+;;; 
+;;; this$.fileName = e.fileName;
+;;; 
+;;; this$.lineNumber = e.lineNumber;
+;;; 
+;;; this$.columnNumber = e.columnNumber;
+;;; 
+;;; this$.stack = e.stack;
+;;; 
+;;; return this$;
+;;; }
 ;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span","#error {:message \"ERROR\", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: No protocol method Renderable.render defined for type number: 15]}"],"~:value","#error {:message \"ERROR\", :data {:tag :cljs/analysis-error}, :cause #object[Error Error: No protocol method Renderable.render defined for type number: 15]}"]
+;; <=
 
+;; @@ [cljs]
+(pinkgorilla.ui.gorilla-renderable/render "h")
 ;; @@
+;; ->
+;;; [:ok {:type :html, :content "<span class='cljs-string'>&quot;h&quot;</span>", :value "\"h\""}] type: function (meta,cnt,arr,__hash){
+;;; this.meta = meta;
+;;; this.cnt = cnt;
+;;; this.arr = arr;
+;;; this.__hash = __hash;
+;;; this.cljs$lang$protocol_mask$partition0$ = 16647951;
+;;; this.cljs$lang$protocol_mask$partition1$ = 139268;
+;;; }
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span","{:type :html, :content \"<span class='cljs-string'>&quot;h&quot;</span>\", :value \"\\\"h\\\"\"}"],"~:value","{:type :html, :content \"<span class='cljs-string'>&quot;h&quot;</span>\", :value \"\\\"h\\\"\"}"]
+;; <=
+
+;; @@ [cljs]
+(pinkgorilla.kernel.cljs-tools/r! [:h1 "super"])
+;; @@
+;; ->
+;;; [:ok {:value-response {:type "reagent", :content [:h1 "super"]}}] type: function (meta,cnt,arr,__hash){
+;;; this.meta = meta;
+;;; this.cnt = cnt;
+;;; this.arr = arr;
+;;; this.__hash = __hash;
+;;; this.cljs$lang$protocol_mask$partition0$ = 16647951;
+;;; this.cljs$lang$protocol_mask$partition1$ = 139268;
+;;; }
+;; <-
+;; =>
+;;; ["^ ","~:type","html","~:content",["span","{:value-response {:type \"reagent\", :content [:h1 \"super\"]}}"],"~:value","{:value-response {:type \"reagent\", :content [:h1 \"super\"]}}"]
+;; <=
+
+;; @@ [clj]
 ; SVG WITH STATIC PATH
 <svg viewBox="-10 -10 116 111">
   <path fill="#bbb" d="
@@ -96,7 +157,7 @@
 ;;; 
 ;; <-
 
-;; @@
+;; @@ [clj]
 (defn mid-point [p1 p2]
   (map #(/ (+ % %2) 2) p1 p2))
 
@@ -133,7 +194,7 @@
 ;;; 
 ;; <-
 
-;; @@
+;; @@ [clj]
 ; QUIL demo
 
 (ns qil-demo 
@@ -165,7 +226,7 @@
 ;;; 
 ;; <-
 
-;; @@
+;; @@ [clj]
 https://github.com/reagent-project/reagent-cookbook/tree/master/recipes/canvas-fills-div
 http://lambdafunk.com/2017-03-30-Interactive-Sierpinski-Triangle/
 https://github.com/stathissideris/dali

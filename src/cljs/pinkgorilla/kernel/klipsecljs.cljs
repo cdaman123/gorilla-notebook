@@ -6,6 +6,7 @@
    [klipse-clj.lang.clojure :as cklipse]
    klipse-clj.lang.clojure.bundled-namespaces
    pinkgorilla.kernel.bundled-dependencies
+   [pinkgorilla.kernel.cljs-tools :refer [r!]]
    [gadjett.core-fn]
    [cljs.tagged-literals :as tags]
    [goog.dom :as gdom]
@@ -28,7 +29,9 @@
    [cljs-uuid-utils.core :as uuid]
    [re-frame.core :refer [dispatch]]
    [taoensso.timbre :refer-macros (info)]
-   ))
+
+   [pinkgorilla.ui.gorilla-renderable :refer [render]]
+   [pinkgorilla.ui.rendererCLJS]))
 
 (defn init-klipse! []
   (go (<! (cklipse/create-state-eval))
@@ -45,12 +48,18 @@
     result
     'cljs.user]))
 
-(defn html [result]
-  {:value-response
-   {:type "html"
-    :content ["span" result]
-    :value result}})
+(defn render-embedded [result]
+  (let [s (pr-str result)]
+    {:value-response
+     {:type "html"
+      :content ["span" s]
+      :value s}}))
 
+(defn render-renderable [result]
+  (let [response   {:value-response (render result)}
+        _ (println "response: " response)
+        ]
+    response))
 
 ;; PREPL
 
@@ -78,7 +87,7 @@
 (defn send-result-eval [segment-id result]
   (info "cljs eval result:" result)
   (send-console segment-id (str (pr-str result) " type: " (type (nth result 1))))
-  (send-value segment-id (html (pr-str (nth result 1))))
+  (send-value segment-id (render-renderable (nth result 1)))
   (dispatch [:evaluator:done-response segment-id])) ; assumption: only one response to eval
 
 (defn send-eval-message!

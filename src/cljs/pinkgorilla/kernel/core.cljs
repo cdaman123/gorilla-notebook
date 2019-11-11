@@ -20,9 +20,9 @@
     (info "cannot eval - unknown kernel!")))
 
 
-(defn get-completion-doc [kernel ns x]
+(defn get-completion-doc [kernel symbol ns callback]
   (case kernel
-    :clj (nrepl/get-completion-doc ns x)
+    :clj (nrepl/get-completion-doc symbol ns callback)
     (info "get-completion-doc not implemented for kernel: " kernel)))
 
 (defn get-completions [kernel symbol ns context callback]
@@ -32,5 +32,5 @@
 
 (defn resolve-symbol [kernel symbol ns callback]
    (case kernel
-    :clj (nrepl/resolve-symbol kernel symbol ns callback)
+    :clj (nrepl/resolve-symbol symbol ns callback)
     (info "get-completion-doc not implemented for kernel: " kernel)))
