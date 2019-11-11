@@ -53,6 +53,8 @@
                  [re-com "2.6.0"]
                  [day8.re-frame/http-fx "0.1.6"]
                  [day8.re-frame/undo "0.3.3"]
+                 [re-catch "0.1.4"] ; exception handling for reagent components
+
                  ;; Reagent uses React and may rely on cljsjs externs. So better not use a webpack version of
                  ;; React.
                  ;;
@@ -124,11 +126,11 @@
                  [appliedscience/js-interop "0.1.13"]
                  [viebel/gadjett "0.5.2"]
                  [viebel/klipse-clj "10.1.3"]               ; todo: remove parinfer dependency
-
+                 
                  ;pinkgorilla sub projects
                  [org.pinkgorilla/gorilla-renderable "2.1.0"] ; klipse-cljs needs renderable
-                 [org.pinkgorilla/encoding "0.0.5"]         ; notebook encoding
-
+                 [org.pinkgorilla/encoding "0.0.6"]         ; notebook encoding
+                 
                  ; ui plugins bundled with notebook
                  [awb99.fortune "0.0.1"]
                  [quil "3.1.0"]

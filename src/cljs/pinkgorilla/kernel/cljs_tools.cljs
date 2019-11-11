@@ -8,7 +8,8 @@
   (reify Renderable
     (render [_] 
       {:type :reagent-cljs
-       :content vec_or_reagent_f
+       :content {} ; reagent components cannot get persisted - they are living functions compiled in the notebook
+       :reagent vec_or_reagent_f
              ;:value result
        })))
 

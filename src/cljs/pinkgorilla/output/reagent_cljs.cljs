@@ -7,11 +7,14 @@
 (defn output-reagent-cljs
   [output _]
   (let [
-        component (:content output)
+        component (:reagent output)
         _ (info "reagent component: " component)
         ]
-    (reagent/create-class
-     {:display-name "output-reagent-cljs"
-      :reagent-render (fn []
-                        [:div.reagent
-                         component])})))
+    component
+    #_(reagent/create-class
+       {:display-name "output-reagent-cljs"
+        :reagent-render (fn []
+                          [:div.reagent
+                           component])})
+    
+    ))
