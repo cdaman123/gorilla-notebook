@@ -167,7 +167,7 @@
 
 (defn start-ws-repl!
   [path app-url]
-  (info "Start ws repl at" path)
+  (info "clj kernel starting at" path)
   (go
     (let [ws-url (ws-origin path app-url)
           {:keys [ws-channel error]} (<! (ws-ch ws-url {:format :json}))]

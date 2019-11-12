@@ -33,7 +33,6 @@
    [pinkgorilla.ui.gorilla-renderable :refer [render]]
    [pinkgorilla.ui.rendererCLJS]
    [quil.core :include-macros true]  ; awb99: cannot do this in bundled-dependencies it seems.
-
    ))
 
 (defn init-klipse! []
@@ -41,8 +40,13 @@
       (info "klipse init done")))
 
 
+; dispatch results to reframe
+
 (defn send-console [segment-id result]
-  (dispatch [:evaluator:console-response segment-id {:console-response result}]))
+  (dispatch
+   [:evaluator:console-response
+    segment-id
+    {:console-response result}]))
 
 (defn send-value [segment-id result]
   (dispatch
@@ -51,17 +55,29 @@
     result
     'cljs.user]))
 
-(defn render-embedded [result]
+(defn send-error [segment-id error-text]
+  (dispatch
+   [:evaluator:error-response
+    {:error-text error-text
+     :segment-id segment-id}]))
+
+; render result from repl to intermediary format used in notebook uiºº
+
+(defn render-embedded
+  "a simple render implementation for testing"
+  [result]
   (let [s (pr-str result)]
     {:value-response
      {:type "html"
       :content ["span" s]
       :value s}}))
 
-(defn render-renderable [result]
+(defn render-renderable
+  "rendering via the Renderable protocol (needs renderable project)
+   (users can define their own render implementations)"
+  [result]
   (let [response   {:value-response (render result)}
-        _ (println "response: " response)
-        ]
+        _ (println "response: " response)]
     response))
 
 ;; PREPL
@@ -88,10 +104,14 @@
 ;; [:ok value]
 ;; [:error #error {:message "ERROR", :data {:tag :cljs/analysis-error}, :cause #object[TypeError TypeError: bongo.trott.g is undefined]}]
 (defn send-result-eval [segment-id result]
-  (info "cljs eval result:" result)
-  (send-console segment-id (str (pr-str result) " type: " (type (nth result 1))))
-  (send-value segment-id (render-renderable (nth result 1)))
-  (dispatch [:evaluator:done-response segment-id])) ; assumption: only one response to eval
+  (let [[type data] result]
+    (info "cljs eval result:" result)
+    (send-console segment-id (str " type: " (type data) "data: " (pr-str data)))
+    (case type
+      :ok  (send-value segment-id (render-renderable data))
+      :error (send-error segment-id (pr-str data))
+      (info "cljs kernel received unknown result type: " type "data: " data))
+    (dispatch [:evaluator:done-response segment-id]))) ; assumption: only one response to eval
 
 (defn send-eval-message!
   [segment-id snippet]
