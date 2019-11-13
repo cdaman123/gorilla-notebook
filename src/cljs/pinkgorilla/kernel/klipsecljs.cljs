@@ -61,6 +61,9 @@
     {:error-text error-text
      :segment-id segment-id}]))
 
+(defn send-done [segment-id]
+  (dispatch [:evaluator:done-response segment-id]))
+
 ; render result from repl to intermediary format used in notebook uiºº
 
 (defn render-embedded
@@ -111,7 +114,7 @@
       :ok  (send-value segment-id (render-renderable data))
       :error (send-error segment-id (pr-str data))
       (info "cljs kernel received unknown result type: " type "data: " data))
-    (dispatch [:evaluator:done-response segment-id]))) ; assumption: only one response to eval
+    (send-done segment-id))) ; assumption: only one response to eval
 
 (defn send-eval-message!
   [segment-id snippet]
