@@ -8,28 +8,30 @@
 
 
 (defmethod query-params-to-storage :bitbucket [_ params]
-  (StorageBitbucket. 
-    (:user params)
-    (:repo params)
-    (or (:revision params) "HEAD")
-    (:path params)
-))
+  (StorageBitbucket.
+   (:user params)
+   (:repo params)
+   (or (:revision params) "HEAD")
+   (:path params)))
 
 
 (extend-type StorageBitbucket
   Storage
-  
+
   (load-url [self base-path]
     (info "bitbucket.load")
-    (str "https://bitbucket.org/api/1.0/repositories/" (:user self) "/" (:repo self) "/raw/" (:revision self)"/" (:path self)))
-  
-  (save [self]
-    (info "bitbucket.save"))
-  
+    (str "https://bitbucket.org/api/1.0/repositories/" (:user self) "/" (:repo self) "/raw/" (:revision self) "/" (:path self)))
+
+  (save-url [self base-path]
+    (info "bitbucket.save-url"))
+
+  (encode-content [self notebook]
+    (info "bitbucket-storage.encode-content"))
+
   (external-url [self]
     (info "local-storage.external-url")
     nil)
-  
+
   (gorilla-path
     [self]
     (info "bitbucket.gorilla-path")

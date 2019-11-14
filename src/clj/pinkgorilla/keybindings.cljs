@@ -64,11 +64,11 @@
     :kb      "alt+g alt+j"
     :handler "worksheet:changeToCode"}
    {:name    "command:app:open"
-    :desc    "Load a worksheet."
+    :desc    "Load a Notebook"
     :kb      "alt+g alt+l"
     :handler "app:load"}
    {:name    "command:app:save"
-    :desc    "Save the worksheet."
+    :desc    "Save the notebook"
     :kb      "alt+g alt+s"
     :handler "app:save"}
 

@@ -1,14 +1,26 @@
-(ns pinkgorilla.events.persistence
+(ns pinkgorilla.events.storage-local
   (:require
-   [goog.crypt.base64 :as b64]
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
-   [ajax.core :as ajax :refer [GET POST]]
+   ;[ajax.core :as ajax :refer [GET POST]]
    [taoensso.timbre :refer-macros (info)]
-   [pinkgorilla.notebook.core :refer [load-notebook-hydrated]]
    [pinkgorilla.routes :as routes]
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]))
 
 
+;; load files from local-storage
+;; present dialog of available local files
+
+
+(reg-event-fx
+ :app:load
+ (fn [{:keys [db]} _]
+   {:db         db
+    :http-xhrio {:method          :get
+                 :uri             (str (:base-path db) "gorilla-files")
+                 :timeout         5000                     ;; optional see API docs
+                 :response-format (ajax/transit-response-format) ;; IMPORTANT!: You must provide this.
+                 :on-success      [:process-files-response]
+                 :on-failure      [:process-error-response]}}))
 
 
 

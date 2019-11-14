@@ -27,15 +27,15 @@
                                  [:input {:type          "text"
                                           :value         (:filename @dialog)
                                            ;; blur does not work - prevents the click
-                                           ;; :on-blur     #(dispatch [:save-as-cancel])
-                                          :on-mouse-down #(dispatch [:save-as-cancel])
-                                          :on-key-down   #(dispatch [:save-as-keydown (.-which %)])
+                                           ;; :on-blur     #(dispatch [:save-dialog-cancel])
+                                          :on-mouse-down #(dispatch [:save-dialog-cancel])
+                                          :on-key-down   #(dispatch [:save-dialog-keydown (.-which %)])
 
-                                          :on-change     #(dispatch [:save-as-change (-> % .-target .-value)])}]
+                                          :on-change     #(dispatch [:save-dialog-change (-> % .-target .-value)])}]
                                   ;; :ref         "filterText"
 
                                  [:div>div {:class    "modal-button"
-                                            :on-click #(dispatch [:save-as-cancel])}
+                                            :on-click #(dispatch [:save-dialog-cancel])}
                                   "Cancel"]
                                  [:div {:class    "modal-button highlight"
                                         :on-click #(dispatch [:save-file (:filename @dialog)])}

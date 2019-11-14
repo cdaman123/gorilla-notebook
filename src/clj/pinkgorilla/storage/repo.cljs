@@ -24,9 +24,12 @@
     (b64/decodeString (get response "content")))
 
 
-  (save [self]
-    (info "repo-storage.save"))
+  (save-url [self base-path]
+    (info "repo-storage.save-url"))
 
+  (encode-content [self notebook]
+    (info "repo-storage.encode-content"))
+  
   (external-url [self]
     (info "repo-storage.external-url")
     nil)

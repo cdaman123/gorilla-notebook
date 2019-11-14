@@ -20,9 +20,16 @@
   (decode-content [self content]
     (get content "worksheet-data"))
 
+  (save-url [self base-path]
+    (info "local-storage.save-url")
+    (str base-path "save")
+            ;(str base-path "save?worksheet-filename=" (js/encodeURIComponent (:filename self)))
+    )
 
-  (save [self]
-    (info "local-storage.save"))
+  (encode-content [self notebook]
+    (info "local-storage.encode-content")
+    (str "worksheet-filename=" (js/encodeURIComponent (:filename self))
+         "&worksheet-data=" (js/encodeURIComponent notebook)))
 
   (external-url [self]
     (info "local-storage.external-url")

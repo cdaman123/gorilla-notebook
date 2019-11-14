@@ -23,7 +23,6 @@
     (str "https://api.github.com/gists/" (:id self)))
 
 
-
   (decode-content [self response]
     (let [files (get response "files")
           name (if (= 1 (count files))
@@ -33,9 +32,11 @@
                       (get "content"))]
       content))
 
-  (save
-    [self]
+  (save-url [self base-path]
     (info "gist-storage.save"))
+
+  (encode-content [self notebook]
+    (info "gist-storage.encode-content"))
 
   (external-url [self]
     (info "local-storage.external-url")

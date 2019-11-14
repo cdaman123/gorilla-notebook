@@ -2,6 +2,7 @@
   (:require
    [taoensso.timbre :refer-macros (info)]
    [pinkgorilla.routes :as routes]
+   
    [pinkgorilla.storage.local]
    [pinkgorilla.storage.gist]
    [pinkgorilla.storage.repo]

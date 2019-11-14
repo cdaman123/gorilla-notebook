@@ -116,8 +116,7 @@
    :config       {:read-only true}
    :base-path    nil
    :message      nil
-   :save         {:show     false
-                  :filename nil}
+   :save         {:show     false}
    :settings {:show false }
    })
 
