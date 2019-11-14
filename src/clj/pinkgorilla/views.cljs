@@ -1,11 +1,11 @@
 (ns pinkgorilla.views
-  (:require 
+  (:require
    [clojure.string :as str]
       ;; [hickory.core :as hick]
       ;; [gorilla-repl.webpack-include]
       ;; [gorilla-repl.webpack-extern]
       ;; [clojure.walk :as w]
-   
+
    [reagent.core :as reagent :refer [atom]]
    [re-frame.core :refer [subscribe dispatch dispatch-sync]]
    [re-com.core :as re-com]
@@ -15,7 +15,7 @@
     :refer-macros (log trace debug info warn error fatal report
                        logf tracef debugf infof warnf errorf fatalf reportf
                        spy get-env log-env)]
-   
+
    [cljs-uuid-utils.core :as uuid]
    [cljsjs.marked]
       ;; TODO : vega 2.6 does  not quite work yet - throw spec at http://vega.github.io/vega-editor/?mode=vega
@@ -24,7 +24,7 @@
       ;[cljsjs.d3]    2019-10-20 awb99 removed as it fucks up the new vega
       ;[cljsjs.d3geo]  2019-10-20 awb99 removed as it fucks up the new vega
       ;[cljsjs.vega] 2019-10-20 awb99 removed as it fucks up the new vega
-   
+
    [pinkgorilla.subs]
    [pinkgorilla.editor.core :as editor]
    [pinkgorilla.output.hack :refer [temp-comp-hack]]
@@ -34,7 +34,7 @@
    [pinkgorilla.dialog.palette :refer [palette-dialog]]
    [pinkgorilla.dialog.settings :refer [settings-dialog]]
    [pinkgorilla.worksheet.core :refer [worksheet]]
-
+   [pinkgorilla.storage.core]
       ;widgets are only included here so they get compiled to the bundle.js
    [widget.hello]))
 
@@ -73,28 +73,27 @@
   []
   (let [docs (subscribe [:docs])]
     (reagent/create-class
-      {;; :component-did-mount  (fn [this])
-       :display-name         "doc-viewer"                   ;; for more helpful warnings & errors
+     {;; :component-did-mount  (fn [this])
+      :display-name         "doc-viewer"                   ;; for more helpful warnings & errors
        ;; :component-will-unmount (fn [this])
-       :component-did-update (fn [this old-argv]
+      :component-did-update (fn [this old-argv]
                                ;; TODO Ugly, but a bit more tricky to get right in reagent-render/render
-                               (if-let [hint-el (gdom/getElementByClass "CodeMirror-hints")]
-                                 (let [rect (.getBoundingClientRect hint-el)
-                                       el (reagent/dom-node this)
-                                       top (.-top rect)
-                                       right (.-right rect)]
-                                   (dom/set-px! el :top top :left right)
+                              (if-let [hint-el (gdom/getElementByClass "CodeMirror-hints")]
+                                (let [rect (.getBoundingClientRect hint-el)
+                                      el (reagent/dom-node this)
+                                      top (.-top rect)
+                                      right (.-right rect)]
+                                  (dom/set-px! el :top top :left right)
                                    ;;
                                    ;; (set! (.-top el-style) top)
                                    ;; (set! (.-left el-style) right)
-                                   )))
-       :reagent-render
-                             (fn []
-                               [:div.DocViewer.doc-viewer {:style (if (str/blank? (:content @docs))
-                                                                    {:display "none"} {})}
-                                [:div.DocViewer.doc-viewer-content {}
-                                 [:div {
-                                        :dangerouslySetInnerHTML {:__html (:content @docs)}}]]])})))
+                                  )))
+      :reagent-render
+      (fn []
+        [:div.DocViewer.doc-viewer {:style (if (str/blank? (:content @docs))
+                                             {:display "none"} {})}
+         [:div.DocViewer.doc-viewer-content {}
+          [:div {:dangerouslySetInnerHTML {:__html (:content @docs)}}]]])})))
 
 
 
@@ -115,23 +114,22 @@
   []
   (let [config (subscribe [:config])]
     (reagent/create-class
-      {:display-name   "gorilla-app"
-       :reagent-render (fn []
-                         (let [container [:div.Gorilla {}]
-                               rw (not (:read-only @config))
-                               hamburger-comp (if rw ^{:key :hamburger} [hamburger])
-                               palette-comp (if rw ^{:key :palette-dialog} [palette-dialog])
-                               save-comp (if rw ^{:key :save-dialog} [save-dialog])
-                               settings-comp (if rw ^{:key :settings-dialog} [settings-dialog])
-                               doc-comp (if rw ^{:key :doc-viewer} [doc-viewer])
-                               other-children [^{:key :status} [app-status]
-                                               hamburger-comp
-                                               palette-comp
-                                               save-comp
-                                               settings-comp
-                                               doc-comp
-                                               ^{:key :worksheet} [worksheet
-                                                                   rw
-                                                                   (get-in @config [:project :gorilla-options :editor] {})]
-                                               ]]
-                           (into container (filter some? other-children))))})))
+     {:display-name   "gorilla-app"
+      :reagent-render (fn []
+                        (let [container [:div.Gorilla {}]
+                              rw (not (:read-only @config))
+                              hamburger-comp (if rw ^{:key :hamburger} [hamburger])
+                              palette-comp (if rw ^{:key :palette-dialog} [palette-dialog])
+                              save-comp (if rw ^{:key :save-dialog} [save-dialog])
+                              settings-comp (if rw ^{:key :settings-dialog} [settings-dialog])
+                              doc-comp (if rw ^{:key :doc-viewer} [doc-viewer])
+                              other-children [^{:key :status} [app-status]
+                                              hamburger-comp
+                                              palette-comp
+                                              save-comp
+                                              settings-comp
+                                              doc-comp
+                                              ^{:key :worksheet} [worksheet
+                                                                  rw
+                                                                  (get-in @config [:project :gorilla-options :editor] {})]]]
+                          (into container (filter some? other-children))))})))

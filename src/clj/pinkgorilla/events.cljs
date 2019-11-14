@@ -33,7 +33,9 @@
    [pinkgorilla.events.doc]
    [pinkgorilla.events.settings]
    [pinkgorilla.events.config]
-   [pinkgorilla.events.multikernel]))
+   [pinkgorilla.events.multikernel]
+   [pinkgorilla.events.storage]
+   ))
 
 
 ;; http://localhost:3449/worksheet.html#/view?source=github&user=JonyEpsilon&repo=gorilla-test&path=ws/graph-examples.clj

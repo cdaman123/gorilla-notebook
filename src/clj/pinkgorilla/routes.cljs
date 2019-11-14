@@ -68,7 +68,7 @@
   (defroute "/new" [query-params]
             (re-frame/dispatch [:initialize-new-worksheet]))
   (defroute "/edit" [query-params]
-            (re-frame/dispatch [:edit-file (:worksheet-filename query-params)]))
+            (re-frame/dispatch [:edit-file query-params]))
   (defroute "/view" [query-params]
             (re-frame/dispatch [:view-file query-params]))
   (defroute "/reset" []

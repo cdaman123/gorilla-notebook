@@ -41,7 +41,7 @@
  [standard-interceptors]
  (fn [db [_ filename]]
    (dispatch [:display-message (str filename " saved") 2000])
-   (routes/nav! (str "/edit?worksheet-filename=" filename))
+   (routes/nav! (str "/edit?source=local&filename=" filename))
    (assoc-in db [:save :saved] true)))
 
 (reg-event-fx                                               ;; note the trailing -fx
