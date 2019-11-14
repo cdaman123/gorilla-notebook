@@ -116,8 +116,11 @@
    :config       {:read-only true}
    :base-path    nil
    :message      nil
-   :save         {:show     false}
-   :settings {:show false }
+   :save         {:show     false} ; awb99: move to :dialog
+   :dialog {:settings false }
+   :settings 
+   {:default-kernel :clj
+    :github-token ""}
    })
 
 

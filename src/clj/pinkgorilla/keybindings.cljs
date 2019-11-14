@@ -74,7 +74,7 @@
 
    {:name    "command:app:showsettings"
     :desc    "Settings Edit."
-    :kb       ["ctrl+1" "alt+g alt+p"]
+    :kb       ["ctrl+1" "alt+g alt+1"]
     :handler "app:showsettings"}
    {:name    "command:app:kernel-toggle"
     :desc    "Kernel Toggle."

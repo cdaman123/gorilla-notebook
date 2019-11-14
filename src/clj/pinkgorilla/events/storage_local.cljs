@@ -1,7 +1,7 @@
 (ns pinkgorilla.events.storage-local
   (:require
    [re-frame.core :as re-frame :refer [reg-event-db reg-event-fx path trim-v after debug dispatch dispatch-sync]]
-   ;[ajax.core :as ajax :refer [GET POST]]
+   [ajax.core :as ajax :refer [GET POST]]
    [taoensso.timbre :refer-macros (info)]
    [pinkgorilla.routes :as routes]
    [pinkgorilla.events.helper :refer [text-matches-re default-error-handler  check-and-throw  standard-interceptors]]))

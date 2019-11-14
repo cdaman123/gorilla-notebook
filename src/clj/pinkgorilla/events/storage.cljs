@@ -83,7 +83,7 @@
      (dispatch [:app:saveas])) ;otherwise open save dialog 
    db))
 
-
+;; save using the storage protocol
 (reg-event-fx
  :save-storage
  (fn [{:keys [db]} [_ storage]]
@@ -101,6 +101,7 @@
                  :on-failure      [:process-error-response]}})))
 
 
+;; display success message when saving was successful
 (reg-event-db
  :after-save-success
  [standard-interceptors]

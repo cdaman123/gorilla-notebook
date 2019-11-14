@@ -44,6 +44,7 @@
       (do
         (nrepl/start-ws-repl! "repl" app-url)
         (dispatch-sync [:initialize-config])))
+    (dispatch-sync [:settings-localstorage-load])
     (mount-root)
     (if (not route)
       (routes/nav! "/new")

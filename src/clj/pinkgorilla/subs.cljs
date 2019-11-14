@@ -37,6 +37,12 @@
     (get-in db [:save])))
 
 
+; The dialog subscription can be used by all dialogs to manage dialog-visibility.
+(reg-sub
+ :dialog
+ (fn [db _]
+   (get-in db [:dialog])))
+
 (reg-sub
  :settings
  (fn [db _]
